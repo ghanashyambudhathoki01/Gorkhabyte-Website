@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin Panel — GorkhaByte</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-app" id="app">
+        <!-- Login Screen -->
+        <div class="login-screen" id="loginScreen">
+            <div class="card login-card">
+                <h2>Admin Login</h2>
+                <p class="muted">Sign in to manage blog posts</p>
+                <form id="loginForm">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" autocomplete="username" required />
+
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Sign in</button>
+                    </div>
+                    <div id="loginError" class="error" aria-live="polite" style="display:none;"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard" style="display:none;">
+            <header class="dash-header">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                    <h1>Admin Dashboard</h1>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="searchInput" placeholder="Search posts..." style="padding:8px;border-radius:8px;border:1px solid #e6e9ee;width:260px">
+                        <select id="filterSelect" style="padding:8px;border-radius:8px;border:1px solid #e6e9ee">
+                            <option value="all">All</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                        <button id="exportBtn" class="btn ghost">Export Posts</button>
+                        <button id="importBtn" class="btn ghost">Import Posts</button>
+                        <input id="importFile" type="file" accept="application/json" style="display:none">
+                    </div>
+                </div>
+                <div class="dash-actions">
+                    <button id="logoutBtn" class="btn ghost">Logout</button>
+                </div>
+            </header>
+
+            <div class="dash-body">
+                <aside class="sidebar">
+                    <nav>
+                        <ul>
+                            <li><button id="newPostBtn" class="btn full">New Post</button></li>
+                            <li><button id="showPostsBtn" class="btn full ghost">All Posts</button></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <main class="main-panel">
+                    <section class="post-editor card" id="editorSection">
+                        <h2 id="editorTitle">Create Post</h2>
+                        <form id="postForm">
+                            <input type="hidden" id="postId">
+
+                            <label for="postTitle">Title</label>
+                            <input id="postTitle" required />
+
+                            <label for="postExcerpt">Excerpt</label>
+                            <input id="postExcerpt" maxlength="160" placeholder="Short summary (max 160 chars)" />
+
+                            <label for="postContent">Content</label>
+                            <textarea id="postContent" rows="8" required></textarea>
+
+                            <label for="postImage">Media files (optional) — images, PDFs, or other files</label>
+                            <input id="postImage" type="file" accept="image/*,application/pdf" multiple>
+                            <div class="image-preview" id="imagePreview" style="display:none;">
+                                <div id="previewList" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn primary">Save Post</button>
+                                <button type="button" id="cancelEdit" class="btn ghost">Cancel</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="posts-list card" id="postsSection">
+                        <h2>All Posts</h2>
+                        <div id="postsContainer" class="posts-container">
+                            <!-- Posts listed here -->
+                        </div>
+                        <div id="noPosts" class="muted" style="display:none;">No posts yet. Create your first post.</div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

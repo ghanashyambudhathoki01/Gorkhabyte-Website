@@ -1,0 +1,45 @@
+:root{
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --text:#0f172a;
+    --accent:#2563eb;
+    --danger:#ef4444;
+    --shadow: 0 6px 18px rgba(15,23,42,0.08);
+}
+*{box-sizing:border-box}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.admin-app{max-width:1100px;margin:36px auto;padding:16px}
+.card{background:var(--card);border-radius:10px;padding:18px;box-shadow:var(--shadow);}
+.login-screen{display:flex;align-items:center;justify-content:center;height:80vh}
+.login-card{width:420px;text-align:center}
+.login-card h2{margin:0 0 8px}
+.muted{color:var(--muted)}
+form label{display:block;text-align:left;margin:12px 0 6px;font-weight:600}
+input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee;background:#fff;outline:none;font-size:0.95rem}
+textarea{resize:vertical}
+.form-actions{margin-top:14px;display:flex;gap:8px}
+.btn{border:0;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn.full{width:100%}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;border:1px solid #e6e9ee}
+.btn.secondary{background:#111827;color:#fff}
+.error{color:var(--danger);margin-top:10px}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.dash-body{display:flex;gap:18px}
+.sidebar{width:160px}
+.main-panel{flex:1}
+.post-editor{margin-bottom:18px}
+.posts-list .posts-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:12px}
+.post-card{border-radius:8px;overflow:hidden;border:1px solid #eef2ff;background:#fff;display:flex;flex-direction:column}
+.post-card img{width:100%;height:140px;object-fit:cover}
+.post-card .card-body{padding:12px;flex:1;display:flex;flex-direction:column}
+.post-card h3{margin:0 0 6px;font-size:1.05rem}
+.card .muted{font-size:0.95rem}
+.post-meta{font-size:0.8rem;color:var(--muted);margin-bottom:8px}
+.post-actions{display:flex;gap:8px;margin-top:8px}
+.image-preview{margin-top:8px}
+.image-preview img{max-width:220px;border-radius:6px;display:block}
+input#searchInput{font-size:0.95rem}
+.small-muted{color:var(--muted);font-size:0.9rem}
+@media (max-width:800px){.dash-body{flex-direction:column}.sidebar{width:100%}.login-card{width:92%}}

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GorkhaByte - Empowering Nepal with IT Services & Training</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="assets/logo.png" alt="GorkhaByte" id="logoImg">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#partners">Our Partners</a></li>
+                    <li><a href="#training">Training</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Empowering Nepal with <span class="gradient-text">Future-Ready</span> IT Services & Training</h1>
+                <p>We help businesses grow and learners build real skills for a brighter future.</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary">Get IT Services</a>
+                    <a href="#training" class="btn btn-secondary">Join Training</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/logo.png" alt="GorkhaByte Logo" id="heroLogo" style="max-width: 450px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <h2>We're thrilled to partner with</h2>
+        <p class="section-subtitle">We collaborate with local educators and training partners to bring real skills and
+            opportunities to learners across Nepal.</p>
+        <div class="partners-grid" aria-label="Our partners">
+            <div class="partner-item">
+                <div class="partner-card">
+                    <a href="#" title="Eduwarn Nepal" target="_blank" rel="noopener noreferrer">
+                        <img src="Partner/eduwarn.png" alt="Eduwarn Nepal logo" loading="lazy">
+                    </a>
+                </div>
+                <div class="partner-desc">
+                    <h3>Eduwarn Nepal</h3>
+                    <p>Local education platform delivering affordable online courses and exam preparation for Nepali
+                        students.</p>
+                </div>
+            </div>
+
+            <div class="partner-item">
+                <div class="partner-card">
+                    <a href="#" title="Sajilo Tution" target="_blank" rel="noopener noreferrer">
+                        <img src="Partner/sajilo%20tution.png" alt="Sajilo Tution logo" loading="lazy">
+                    </a>
+                </div>
+                <div class="partner-desc">
+                    <h3>Sajilo Tution</h3>
+                    <p>Community tutoring center focused on one-on-one support and practical learning for school and
+                        board exams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <h2>We Build Skills, Solve Problems, <span class="gradient-text">Create Impact</span></h2>
+        <p class="section-subtitle">At GorkhaByte, we focus on what matters most — delivering trusted IT services for
+            businesses and hands-on IT training for learners.</p>
+
+        <div class="about-content">
+            <div class="about-text">
+                <p> Our mission is simple: help people and businesses grow by solving real problems and building
+                    practical skills.</p>
+                <p>Every day, we aim to improve 1%, growing together with our community. Whether you're a business
+                    looking for reliable IT solutions or a learner eager to build real-world skills, we're here to
+                    support your journey.</p>
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="icon-cards">
+                <div class="icon-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">💼</div>
+                    <h4>IT Services</h4>
+                    <p>Reliable solutions for your business</p>
+                </div>
+                <div class="icon-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎓</div>
+                    <h4>Training Programs</h4>
+                    <p>Learn by doing real projects</p>
+                </div>
+                <div class="icon-card">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                    <h4>Growth Mindset</h4>
+                    <p>Improving 1% every day</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for image preview and "View More" details -->
+    <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true">
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="" style="max-width:100%; display:none;" />
+                <div id="modalText" style="display:none; padding: 1rem; color: var(--text-primary);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our <span class="gradient-text">IT Solutions</span></h2>
+        <p class="section-subtitle">We provide modern, reliable, and affordable IT services to help your business grow
+            and succeed.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>🌐 Web Development</h3>
+                <p>Responsive, modern, fast websites that deliver exceptional user experiences and drive business
+                    growth.</p>
+            </div>
+            <div class="service-card">
+                <h3>📱 Mobile App Development</h3>
+                <p>Android & iOS apps with smooth performance, intuitive interfaces, and seamless functionality.</p>
+            </div>
+            <div class="service-card">
+                <h3>📊 Digital Marketing</h3>
+                <p>SEO, social media, and targeted campaigns that boost your online presence and reach your audience.
+                </p>
+            </div>
+            <div class="service-card">
+                <h3>🎨 UI/UX Design</h3>
+                <p>Intuitive and user-friendly interfaces that create memorable experiences for your customers.</p>
+            </div>
+            <div class="service-card">
+                <h3>⚙️ Custom Software Solutions</h3>
+                <p>Tailored software to improve efficiency, streamline operations, and solve your unique challenges.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#contact" class="btn btn-primary">Request a Service</a>
+        </div>
+    </section>
+
+    <!-- Training Section -->
+    <section id="training" class="training">
+        <h2>Learn & Grow <span class="gradient-text">with Us</span></h2>
+        <p class="section-subtitle">Practical, project-based training to build real-world IT skills.</p>
+
+        <div class="training-grid">
+            <div class="training-card">
+                <h3>Web Development</h3>
+                <p>Master HTML, CSS, JavaScript, and modern frameworks to build professional websites.</p>
+            </div>
+            <div class="training-card">
+                <h3>App Development</h3>
+                <p>Learn to create mobile applications for Android and iOS with industry-standard tools.</p>
+            </div>
+            <div class="training-card">
+                <h3>Python & Programming</h3>
+                <p>Build a strong programming foundation with Python and essential software development skills.</p>
+            </div>
+            <div class="training-card">
+                <h3>IT Career Guidance</h3>
+                <p>Get personalized advice and mentorship to navigate your IT career path successfully.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Team Section -->
+    <section id="team">
+        <h2>The Minds Behind <span class="gradient-text">GorkhaByte</span></h2>
+        <p class="section-subtitle">Meet the passionate team dedicated to empowering Nepal with technology.</p>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <h4>Founder & CEO</h4>
+                <h3>Ghanashyam Budhathoki</h3>
+                <p>He is the visionary founder of Gorkhabyte, leading our mission to deliver innovative tech solutions
+                    and high-impact training with passion, expertise, and a commitment to excellence.</p>
+                <img src="assets/founder.jpeg" alt="Founder and CEO" loading="lazy">
+
+            </div>
+            <div class="team-member">
+                <h4>Backend Developer</h4>
+                <h3>Pawel Hoque</h3>
+                <p>He is our skilled Backend Developer at Gorkhabyte, designing and maintaining robust, scalable, and
+                    secure systems that power our applications and ensure seamless user experiences.</p>
+                <img src="assets/backend%20developer.jpeg" alt="Backend Developer" loading="lazy">
+            </div>
+            <div class="team-member">
+                <h4>Content Strategist </h4>
+                <h3>Sabin Budhathoki</h3>
+                <p>He is our insightful Content Strategist at Gorkhabyte, shaping and guiding our content direction to
+                    ensure it aligns with our brand vision, engages our audience, and drives meaningful impact.</p>
+                <img src="assets/content%20strategist.jpg" alt="Content Strategist" loading="lazy">
+
+            </div>
+            <div class="team-member">
+                <h4>Content Writer </h4>
+                <h3>Prashant Gautam</h3>
+                <p>He is our talented Content Writer at Gorkhabyte, crafting compelling, clear, and engaging content
+                    that effectively communicates our vision, educates our audience, and strengthens our brand presence.
+                </p>
+                <img src="assets/content%20writer.jpg" alt="Content Writer" loading="lazy">
+
+            </div>
+            <div class="team-member">
+                <h4>Graphics Designer </h4>
+                <h3>Suraj Malla</h3>
+                <p>He is our Creative Graphics Designer at Gorkhabyte, bringing ideas to life through impactful visuals,
+                    modern design principles, and a strong passion for creativity.</p>
+                <img src="assets/Graphics%20designer.jpg" alt="Graphics Designer" loading="lazy">
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Let's Build the <span class="gradient-text">Future Together</span></h2>
+        <p class="section-subtitle">Email us for a free consultation or reach out through our social media handles.</p>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <h4>📧 Email</h4>
+                <p>gorkhabyte0@gmail.com</p>
+                <a href="mailto:gorkhabyte0@gmail.com" class="btn btn-primary" style="margin-top: 1rem;">Email Us</a>
+            </div>
+            <div class="contact-item">
+                <h4>📍 Location</h4>
+                <p>Dolakha Charikot, Nepal</p>
+            </div>
+            <div class="contact-item">
+                <h4>🌐 Follow Us</h4>
+                <div class="social-links" role="list" aria-label="Follow GorkhaByte on social media">
+                    <a role="listitem" aria-label="Facebook" title="facebook"
+                        href="https://www.facebook.com/profile.php?id=100083766273803" target="_blank"
+                        rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+
+                    <a role="listitem" aria-label="Instagram" title="Instagram" href="https://instagram.com/GorkhaByte"
+                        target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+
+                    <a role="listitem" aria-label="TikTok" title="TikTok" href="https://tiktok.com/@GorkhaByte"
+                        target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>GorkhaByte</h4>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8; font-size: 0.95rem;">Empowering Nepal with
+                    future-ready IT services and training.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#training">Training</a></li>
+                    <li><a href="#team">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Web Development</a></li>
+                    <li><a href="#services">Mobile Apps</a></li>
+                    <li><a href="#services">Digital Marketing</a></li>
+                    <li><a href="#services">UI/UX Design</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links" style="justify-content: flex-start;">
+                    <a href="https://www.facebook.com/profile.php?id=100083766273803" target="_blank" title="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/gorkhabyte?igsh=bWVybWp6M3d4OG41" target="_blank"
+                        title="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@gorkhabyte0?_r=1&_t=ZS-91c5eww4xgv" target="_blank" title="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GorkhaByte. All rights reserved. | Copyrighted by Eduwarn Nepal</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = html.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('themeIcon').textContent = '☀️';
+        }
+
+        // Logo is now set directly in the HTML using assets/logo.png
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .training-card, .team-member, .icon-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Image preview (team images) and "View More" modal for training cards
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalImage = document.getElementById('modalImage');
+        const modalText = document.getElementById('modalText');
+        const modalClose = document.querySelector('.modal-close');
+
+        function openModal({ imageSrc = '', imageAlt = '', title = '', text = '' } = {}) {
+            // prepare
+            if (imageSrc) {
+                modalImage.src = imageSrc;
+                modalImage.alt = imageAlt || title || 'Preview';
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
+
+            if (title || text) {
+                modalText.innerHTML = '';
+                if (title) modalText.innerHTML += `<h3 style="margin-top:0;">${title}</h3>`;
+                if (text) modalText.innerHTML += `<p style="color: var(--text-secondary);">${text}</p>`;
+                modalText.style.display = 'block';
+            } else {
+                modalText.style.display = 'none';
+            }
+
+            modalOverlay.classList.add('show');
+            modalOverlay.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('show');
+            modalOverlay.setAttribute('aria-hidden', 'true');
+            modalImage.src = '';
+            modalText.innerHTML = '';
+        }
+
+        // Team image click -> preview
+        document.querySelectorAll('.team-member img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', (e) => {
+                openModal({ imageSrc: img.src, imageAlt: img.alt });
+            });
+        });
+
+        // Training "View More" buttons -> show modal with details
+        document.querySelectorAll('.training-card .btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                // prevent the smooth-scroll handler for this element
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.training-card');
+                if (!card) return;
+                const titleEl = card.querySelector('h3');
+                const pEl = card.querySelector('p');
+                const title = titleEl ? titleEl.textContent.trim() : '';
+                const text = pEl ? pEl.textContent.trim() : '';
+                openModal({ title, text });
+            });
+        });
+
+        // Close modal handlers
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        modalClose.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('show')) closeModal();
+        });
+        (function setupPartnerFocus() {
+            const partnersSection = document.getElementById('partners');
+            const partnerItems = document.querySelectorAll('#partners .partner-item');
+            if (!partnersSection || !partnerItems.length) return;
+
+            const addFocus = () => partnersSection.classList.add('partner-focus');
+            const removeFocus = () => partnersSection.classList.remove('partner-focus');
+
+            partnerItems.forEach(item => {
+                // Make sure the item or its contained anchor can receive focus for keyboard users
+                const anchor = item.querySelector('a');
+                if (anchor) {
+                    anchor.setAttribute('tabindex', '0');
+                    anchor.addEventListener('focus', addFocus);
+                    anchor.addEventListener('blur', removeFocus);
+                } else {
+                    item.setAttribute('tabindex', '0');
+                    item.addEventListener('focus', addFocus);
+                    item.addEventListener('blur', removeFocus);
+                }
+
+                item.addEventListener('mouseenter', addFocus);
+                item.addEventListener('mouseleave', removeFocus);
+                // touch fallback: toggle on touchstart / touchend
+                item.addEventListener('touchstart', addFocus, { passive: true });
+                item.addEventListener('touchend', removeFocus, { passive: true });
+            });
+        })();
+    </script>
+</body>
+
+</html>

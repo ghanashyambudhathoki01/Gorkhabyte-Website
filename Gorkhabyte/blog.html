@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blog — GorkhaByte</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-container{max-width:980px;margin:36px auto;padding:12px}
+    .posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    .post-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+    .post-card img{width:100%;height:180px;object-fit:cover}
+    .post-body{padding:14px}
+    .post-body h3{margin:0 0 8px}
+    .post-body .meta{color:#6b7280;font-size:0.9rem;margin-bottom:8px}
+    .post-body .excerpt{color:#374151}
+    header.page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    a.back-link{color:var(--accent);text-decoration:none;font-weight:600}
+    @media(max-width:700px){.posts-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="blog-container">
+    <header class="page-head">
+      <div>
+        <h1>Blog</h1>
+        <p class="muted">Posts created from the admin panel.</p>
+      </div>
+      <div>
+        <a class="back-link" href="index.html">← Home</a>
+        <span style="margin-left:12px"></span>
+        <a class="back-link" href="admin.html">Admin</a>
+      </div>
+    </header>
+
+    <section id="postsArea">
+      <div id="noPosts" class="muted">No posts yet.</div>
+      <div id="postsGrid" class="posts-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = 'admin_posts_v1';
+      const postsGrid = document.getElementById('postsGrid');
+      const noPosts = document.getElementById('noPosts');
+      let posts = [];
+      try{ posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }catch(e){ posts = [] }
+      if(!posts || !posts.length){ noPosts.style.display = 'block'; return; }
+      noPosts.style.display = 'none';
+      // newest first
+      // utility: open DB and get media URL
+      function openDb(){
+        return new Promise((resolve,reject)=>{
+            const req = indexedDB.open('gorkhabyte_admin', 1);
+            req.onupgradeneeded = function(e){ const db = e.target.result; if(!db.objectStoreNames.contains('media')) db.createObjectStore('media', { keyPath: 'id', autoIncrement: true }); };
+            req.onsuccess = ()=>resolve(req.result);
+            req.onerror = ()=>reject(req.error || new Error('IndexedDB open failed'));
+        });
+      }
+
+      async function getMediaRecord(id){
+        const db = await openDb();
+        return new Promise((resolve,reject)=>{
+            const tx = db.transaction('media','readonly');
+            const store = tx.objectStore('media');
+            const r = store.get(Number(id));
+            r.onsuccess = ()=>{ resolve(r.result); db.close(); };
+            r.onerror = ()=>{ reject(r.error || new Error('get error')); db.close(); };
+        });
+      }
+
+      async function getMediaURL(id){
+        try{ const rec = await getMediaRecord(id); if(!rec || !rec.blob) return null; return URL.createObjectURL(rec.blob); }catch(e){ return null; }
+      }
+
+      posts.slice().reverse().forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'post-card';
+        card.innerHTML = `
+          <div class="post-body">
+            <div class="meta">${new Date(p.updatedAt||p.createdAt).toLocaleString()}</div>
+            <h3>${escapeHtml(p.title)}</h3>
+            <div class="excerpt">${p.excerpt?escapeHtml(p.excerpt):escapeHtml((p.content||'').slice(0,180))}</div>
+            <div style="margin-top:10px"><a href="#" data-id="${p.id}" class="readMore">Read more</a></div>
+          </div>
+        `;
+        postsGrid.appendChild(card);
+        // image: prefer legacy base64, otherwise try mediaIds
+        (async ()=>{
+          if(p.imageData){
+            const img = document.createElement('img'); img.src = p.imageData; img.alt = p.title; card.insertBefore(img, card.firstChild);
+          } else if(p.mediaIds && p.mediaIds.length){
+            const url = await getMediaURL(p.mediaIds[0]).catch(()=>null);
+            if(url){ const img = document.createElement('img'); img.src = url; img.alt = p.title; card.insertBefore(img, card.firstChild); }
+          }
+        })();
+      });
+
+      function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+      // support opening single post via ?post=<id>
+      const urlParams = new URLSearchParams(location.search);
+      const targetPostId = urlParams.get('post');
+      if(targetPostId){
+        const p = posts.find(x=>x.id==targetPostId);
+        if(p){
+          document.title = p.title + ' — Blog';
+          postsGrid.innerHTML = '';
+          noPosts.style.display = 'none';
+          (async ()=>{
+            const container = document.createElement('div');
+            container.innerHTML = `<h1>${escapeHtml(p.title)}</h1><div class="meta">${new Date(p.updatedAt||p.createdAt).toLocaleString()}</div><div id="media"></div><div style="margin-top:14px">${p.content}</div>`;
+            postsGrid.appendChild(container);
+            if(p.imageData){ const img = document.createElement('img'); img.src = p.imageData; img.alt = p.title; container.querySelector('#media').appendChild(img); }
+            else if(p.mediaIds && p.mediaIds.length){
+              for(const mid of p.mediaIds){
+                const rec = await getMediaRecord(mid).catch(()=>null);
+                if(!rec) continue;
+                const url = URL.createObjectURL(rec.blob);
+                if(rec.type && rec.type.startsWith('image/')){ const img = document.createElement('img'); img.src = url; container.querySelector('#media').appendChild(img); }
+                else { const a = document.createElement('a'); a.href = url; a.textContent = rec.name || 'Download file'; a.download = rec.name || ''; container.querySelector('#media').appendChild(a); }
+              }
+            }
+          })();
+          return;
+        }
+      }
+
+      // simple read more: open a new window with full post
+      postsGrid.addEventListener('click', function(e){
+        const a = e.target.closest('a.readMore'); if(!a) return; e.preventDefault(); const id = a.dataset.id; const p = posts.find(x=>x.id==id); if(!p) return;
+        const win = window.open('','_blank');
+        win.document.write(`<title>${escapeHtml(p.title)}</title><meta charset="utf-8"><style>body{font-family:Inter,Arial;padding:18px;}</style><h1>${escapeHtml(p.title)}</h1><p style="color:#6b7280">${new Date(p.updatedAt||p.createdAt).toLocaleString()}</p><div id="mediaContainer"></div><div>${p.content}</div>`);
+        if(p.imageData){ win.document.getElementById('mediaContainer').innerHTML = `<img style="max-width:100%;height:auto" src="${p.imageData}">`; }
+        else if(p.mediaIds && p.mediaIds.length){
+          (async ()=>{
+            const container = win.document.getElementById('mediaContainer');
+            for(const mid of p.mediaIds){
+                try{
+                    const rec = await getMediaRecord(mid);
+                    if(!rec) continue; const url = URL.createObjectURL(rec.blob);
+                    if(rec.type && rec.type.startsWith('image/')){ const img = win.document.createElement('img'); img.style.maxWidth='100%'; img.src = url; container.appendChild(img); }
+                    else { const a = win.document.createElement('a'); a.href = url; a.textContent = rec.name || 'Download file'; a.download = rec.name || ''; container.appendChild(a); }
+                }catch(e){ console.warn('preview media fail', e); }
+            }
+          })();
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
