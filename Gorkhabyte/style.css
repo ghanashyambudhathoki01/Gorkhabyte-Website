@@ -860,6 +860,37 @@
     }
 }
 
+/* Mobile nav open state - shows the nav-right as a dropdown when the hamburger is toggled */
+.nav-right.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 2vw;
+    top: 64px; /* adjust to nav height */
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    min-width: 180px;
+    z-index: 1500;
+}
+
+.nav-right.mobile-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-right.mobile-open .nav-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.mobile-menu-btn { z-index: 1600; }
+
 /* Modal (image preview / details) */
 .modal-overlay {
     position: fixed;

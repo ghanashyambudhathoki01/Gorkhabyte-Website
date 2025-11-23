@@ -15,7 +15,7 @@
             <a href="#" class="logo">
                 <img src="assets/logo.png" alt="GorkhaByte" id="logoImg">
             </a>
-            <div class="nav-right">
+            <div class="nav-right" id="mainNav">
                 <ul class="nav-links">
                     <li><a href="#services">Services</a></li>
                     <li><a href="#partners">Our Partners</a></li>
@@ -32,7 +32,7 @@
                     <a href="#contact" class="btn btn-primary">Get Started</a>
                 </div>
             </div>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-controls="mainNav" aria-expanded="false">☰</button>
         </div>
     </nav>
 
@@ -245,45 +245,52 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <h2>Let's Build the <span class="gradient-text">Future Together</span></h2>
-        <p class="section-subtitle">Email us for a free consultation or reach out through our social media handles.</p>
+        <p class="section-subtitle">Send us a message, subscribe to our newsletter, or register for training below.</p>
 
-        <div class="contact-info">
+        <div class="contact-info" style="grid-template-columns: 1fr 360px;">
             <div class="contact-item">
-                <h4>📧 Email</h4>
-                <p>gorkhabyte0@gmail.com</p>
-                <a href="mailto:gorkhabyte0@gmail.com" class="btn btn-primary" style="margin-top: 1rem;">Email Us</a>
+                <h4>Contact Us</h4>
+                <form id="contactForm">
+                    <label for="cname">Name</label>
+                    <input id="cname" name="name" required>
+                    <label for="cemail">Email</label>
+                    <input id="cemail" name="email" type="email" required>
+                    <label for="cmessage">Message</label>
+                    <textarea id="cmessage" name="message" rows="5" required></textarea>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                    <div id="contactSuccess" style="display:none;margin-top:8px;color:var(--primary-color);"></div>
+                </form>
             </div>
-            <div class="contact-item">
-                <h4>📍 Location</h4>
-                <p>Dolakha Charikot, Nepal</p>
-            </div>
-            <div class="contact-item">
-                <h4>🌐 Follow Us</h4>
-                <div class="social-links" role="list" aria-label="Follow GorkhaByte on social media">
-                    <a role="listitem" aria-label="Facebook" title="facebook"
-                        href="https://www.facebook.com/profile.php?id=100083766273803" target="_blank"
-                        rel="noopener noreferrer">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
-                    </a>
 
-                    <a role="listitem" aria-label="Instagram" title="Instagram" href="https://instagram.com/GorkhaByte"
-                        target="_blank" rel="noopener noreferrer">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                    </a>
+            <div style="display:flex;flex-direction:column;gap:12px">
+                <div class="contact-item">
+                    <h4>Newsletter</h4>
+                    <p class="muted">Subscribe for updates and training announcements.</p>
+                    <form id="subscribeForm" style="display:flex;gap:8px;align-items:center;">
+                        <input id="subscribeEmail" type="email" placeholder="you@example.com" required style="flex:1">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <div id="subscribeSuccess" style="display:none;margin-top:8px;color:var(--primary-color);"></div>
+                </div>
 
-                    <a role="listitem" aria-label="TikTok" title="TikTok" href="https://tiktok.com/@GorkhaByte"
-                        target="_blank" rel="noopener noreferrer">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path
-                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-                        </svg>
-                    </a>
+                <div class="contact-item">
+                    <h4>Training Registration</h4>
+                    <p class="muted">Register for upcoming IT training programs.</p>
+                    <form id="trainingForm">
+                        <label for="tname">Name</label>
+                        <input id="tname" required>
+                        <label for="temail">Email</label>
+                        <input id="temail" type="email" required>
+                        <label for="tphone">Phone (optional)</label>
+                        <input id="tphone">
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                        <div id="trainingSuccess" style="display:none;margin-top:8px;color:var(--primary-color);"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -504,6 +511,87 @@
                 // touch fallback: toggle on touchstart / touchend
                 item.addEventListener('touchstart', addFocus, { passive: true });
                 item.addEventListener('touchend', removeFocus, { passive: true });
+            });
+        })();
+
+        // Public forms: contact, subscribe, training - store to localStorage for admin retrieval
+        (function setupPublicForms(){
+            const contactForm = document.getElementById('contactForm');
+            const contactSuccess = document.getElementById('contactSuccess');
+            const subscribeForm = document.getElementById('subscribeForm');
+            const subscribeSuccess = document.getElementById('subscribeSuccess');
+            const trainingForm = document.getElementById('trainingForm');
+            const trainingSuccess = document.getElementById('trainingSuccess');
+
+            const MESSAGES_KEY = 'admin_messages_v1';
+            const SUBS_KEY = 'admin_subs_v1';
+            const REGS_KEY = 'admin_regs_v1';
+
+            function saveToStorage(key, obj){ try{ const arr = JSON.parse(localStorage.getItem(key) || '[]'); arr.push(obj); localStorage.setItem(key, JSON.stringify(arr)); }catch(e){ console.error('save fail', e); } }
+
+            if(contactForm){
+                contactForm.addEventListener('submit', (e)=>{
+                    e.preventDefault(); const name = (document.getElementById('cname')||{}).value || ''; const email = (document.getElementById('cemail')||{}).value || ''; const message = (document.getElementById('cmessage')||{}).value || '';
+                    if(!name || !email || !message){ alert('Please complete the form'); return; }
+                    saveToStorage(MESSAGES_KEY, { id: String(Date.now()), name, email, message, createdAt: Date.now() });
+                    if(contactSuccess){ contactSuccess.style.display='block'; contactSuccess.textContent = 'Message saved. We will reach out soon.'; }
+                    contactForm.reset();
+                    setTimeout(()=>{ if(contactSuccess) contactSuccess.style.display='none'; }, 4000);
+                });
+            }
+
+            if(subscribeForm){
+                subscribeForm.addEventListener('submit', (e)=>{
+                    e.preventDefault(); const email = (document.getElementById('subscribeEmail')||{}).value || '';
+                    if(!email){ alert('Please enter your email'); return; }
+                    try{
+                        const arr = JSON.parse(localStorage.getItem(SUBS_KEY) || '[]');
+                        const exists = arr.find(x=>x.email && x.email.toLowerCase() === email.toLowerCase());
+                        if(exists){ if(subscribeSuccess){ subscribeSuccess.style.display='block'; subscribeSuccess.textContent='You are already subscribed.'; } subscribeForm.reset(); setTimeout(()=>subscribeSuccess.style.display='none',3000); return; }
+                        arr.push({ id: String(Date.now()), email, subscribedAt: Date.now() }); localStorage.setItem(SUBS_KEY, JSON.stringify(arr)); if(subscribeSuccess){ subscribeSuccess.style.display='block'; subscribeSuccess.textContent='Thanks — you are subscribed.'; } subscribeForm.reset(); setTimeout(()=>subscribeSuccess.style.display='none',3000);
+                    }catch(err){ console.error(err); alert('Subscription failed'); }
+                });
+            }
+
+            if(trainingForm){
+                trainingForm.addEventListener('submit', (e)=>{
+                    e.preventDefault(); const name = (document.getElementById('tname')||{}).value || ''; const email = (document.getElementById('temail')||{}).value || ''; const phone = (document.getElementById('tphone')||{}).value || '';
+                    if(!name || !email){ alert('Please provide name and email'); return; }
+                    saveToStorage(REGS_KEY, { id: String(Date.now()), name, email, phone, createdAt: Date.now() });
+                    if(trainingSuccess){ trainingSuccess.style.display='block'; trainingSuccess.textContent='Registration received — we will contact you.'; }
+                    trainingForm.reset(); setTimeout(()=>{ if(trainingSuccess) trainingSuccess.style.display='none'; }, 4000);
+                });
+            }
+        })();
+
+        // Mobile menu toggle
+        (function setupMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            if (!mobileMenuBtn || !mainNav) return;
+
+            mobileMenuBtn.addEventListener('click', function (e) {
+                const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+                mainNav.classList.toggle('mobile-open');
+            });
+
+            // Close menu when a nav link is clicked (mobile)
+            mainNav.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    if (mainNav.classList.contains('mobile-open')) {
+                        mainNav.classList.remove('mobile-open');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Close when clicking outside the nav
+            document.addEventListener('click', (e) => {
+                if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target) && mainNav.classList.contains('mobile-open')) {
+                    mainNav.classList.remove('mobile-open');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                }
             });
         })();
     </script>

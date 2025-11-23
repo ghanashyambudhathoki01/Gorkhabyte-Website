@@ -383,4 +383,155 @@
         });
     }
 
+    // --- Additional admin features: Messages, Subscribers, Registrations, Projects (client-side only) ---
+    const MESSAGES_KEY = 'admin_messages_v1';
+    const SUBS_KEY = 'admin_subs_v1';
+    const REGS_KEY = 'admin_regs_v1';
+    const PROJECTS_KEY = 'admin_projects_v1';
+
+    // load helpers
+    function loadFromStorage(key){ try{ return JSON.parse(localStorage.getItem(key) || '[]'); }catch(e){ return []; } }
+    function saveToStorage(key, arr){ localStorage.setItem(key, JSON.stringify(arr || [])); }
+
+    // Messages
+    const showMessagesBtn = document.getElementById('showMessagesBtn');
+    const messagesSection = document.getElementById('messagesSection');
+    const messagesContainer = document.getElementById('messagesContainer');
+    const exportMessages = document.getElementById('exportMessages');
+    const clearMessages = document.getElementById('clearMessages');
+    const noMessagesEl = document.getElementById('noMessages');
+
+    function renderMessages(){
+        const msgs = loadFromStorage(MESSAGES_KEY);
+        messagesContainer.innerHTML = '';
+        if(!msgs.length){ noMessagesEl.style.display='block'; return; }
+        noMessagesEl.style.display='none';
+        msgs.slice().reverse().forEach(m=>{
+            const el = document.createElement('div'); el.className='card'; el.style.marginBottom='8px';
+            el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><strong>${escapeHtml(m.name||'')}</strong> <div class="muted">${escapeHtml(m.email||'')}</div></div><div style="font-size:0.85rem;color:var(--muted)">${new Date(m.createdAt||m.time||Date.now()).toLocaleString()}</div></div><div style="margin-top:8px">${escapeHtml(m.message||'')}</div><div style="margin-top:8px"><button class="btn ghost msg-delete" data-id="${m.id}">Delete</button></div>`;
+            messagesContainer.appendChild(el);
+        });
+        messagesContainer.querySelectorAll('.msg-delete').forEach(b=>b.addEventListener('click', ()=>{
+            const id = b.dataset.id; if(!confirm('Delete this message?')) return; const arr = loadFromStorage(MESSAGES_KEY).filter(x=>x.id!=id); saveToStorage(MESSAGES_KEY, arr); renderMessages();
+        }));
+    }
+
+    if(showMessagesBtn) showMessagesBtn.addEventListener('click', ()=>{
+        // hide others, show messages
+        postsSection.style.display = 'none'; messagesSection.style.display='block'; subscribersSection && (subscribersSection.style.display='none'); registrationsSection && (registrationsSection.style.display='none'); projectsSection && (projectsSection.style.display='none'); renderMessages();
+    });
+
+    if(exportMessages) exportMessages.addEventListener('click', ()=>{
+        const data = loadFromStorage(MESSAGES_KEY); const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='messages.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+    if(clearMessages) clearMessages.addEventListener('click', ()=>{ if(confirm('Clear all messages?')){ saveToStorage(MESSAGES_KEY, []); renderMessages(); }});
+
+    // Subscribers
+    const showSubscribersBtn = document.getElementById('showSubscribersBtn');
+    const subscribersSection = document.getElementById('subscribersSection');
+    const subscribersContainer = document.getElementById('subscribersContainer');
+    const exportSubscribers = document.getElementById('exportSubscribers');
+    const clearSubscribers = document.getElementById('clearSubscribers');
+    const noSubscribers = document.getElementById('noSubscribers');
+
+    function renderSubscribers(){
+        const subs = loadFromStorage(SUBS_KEY);
+        subscribersContainer.innerHTML = '';
+        if(!subs.length){ noSubscribers.style.display='block'; return; }
+        noSubscribers.style.display='none';
+        subs.slice().reverse().forEach(s=>{
+            const el = document.createElement('div'); el.className='card'; el.style.marginBottom='8px'; el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${escapeHtml(s.email)}</strong><div class="muted">${new Date(s.subscribedAt||s.time||Date.now()).toLocaleString()}</div></div><div><button class="btn ghost sub-delete" data-id="${s.id}">Delete</button></div></div>`; subscribersContainer.appendChild(el);
+        });
+        subscribersContainer.querySelectorAll('.sub-delete').forEach(b=>b.addEventListener('click', ()=>{ const id=b.dataset.id; if(!confirm('Delete subscriber?')) return; const arr = loadFromStorage(SUBS_KEY).filter(x=>x.id!=id); saveToStorage(SUBS_KEY, arr); renderSubscribers(); }));
+    }
+    if(showSubscribersBtn) showSubscribersBtn.addEventListener('click', ()=>{ postsSection.style.display='none'; messagesSection && (messagesSection.style.display='none'); subscribersSection.style.display='block'; registrationsSection && (registrationsSection.style.display='none'); projectsSection && (projectsSection.style.display='none'); renderSubscribers(); });
+    if(exportSubscribers) exportSubscribers.addEventListener('click', ()=>{ const data = loadFromStorage(SUBS_KEY); const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='subscribers.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+    if(clearSubscribers) clearSubscribers.addEventListener('click', ()=>{ if(confirm('Clear all subscribers?')){ saveToStorage(SUBS_KEY, []); renderSubscribers(); }});
+
+    // Registrations
+    const showRegistrationsBtn = document.getElementById('showRegistrationsBtn');
+    const registrationsSection = document.getElementById('registrationsSection');
+    const registrationsContainer = document.getElementById('registrationsContainer');
+    const exportRegistrations = document.getElementById('exportRegistrations');
+    const clearRegistrations = document.getElementById('clearRegistrations');
+    const noRegistrations = document.getElementById('noRegistrations');
+
+    function renderRegistrations(){
+        const regs = loadFromStorage(REGS_KEY);
+        registrationsContainer.innerHTML = '';
+        if(!regs.length){ noRegistrations.style.display='block'; return; }
+        noRegistrations.style.display='none';
+        regs.slice().reverse().forEach(r=>{
+            const el = document.createElement('div'); el.className='card'; el.style.marginBottom='8px'; el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><strong>${escapeHtml(r.name||'')}</strong> <div class="muted">${escapeHtml(r.email||'')}</div></div><div style="font-size:0.85rem;color:var(--muted)">${new Date(r.createdAt||r.time||Date.now()).toLocaleString()}</div></div><div style="margin-top:8px">Phone: ${escapeHtml(r.phone||'—')}</div><div style="margin-top:8px"><button class="btn ghost reg-delete" data-id="${r.id}">Delete</button></div>`; registrationsContainer.appendChild(el);
+        });
+        registrationsContainer.querySelectorAll('.reg-delete').forEach(b=>b.addEventListener('click', ()=>{ const id=b.dataset.id; if(!confirm('Delete registration?')) return; const arr = loadFromStorage(REGS_KEY).filter(x=>x.id!=id); saveToStorage(REGS_KEY,arr); renderRegistrations(); }));
+    }
+    if(showRegistrationsBtn) showRegistrationsBtn.addEventListener('click', ()=>{ postsSection.style.display='none'; messagesSection && (messagesSection.style.display='none'); subscribersSection && (subscribersSection.style.display='none'); registrationsSection.style.display='block'; projectsSection && (projectsSection.style.display='none'); renderRegistrations(); });
+    if(exportRegistrations) exportRegistrations.addEventListener('click', ()=>{ const data = loadFromStorage(REGS_KEY); const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='registrations.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+    if(clearRegistrations) clearRegistrations.addEventListener('click', ()=>{ if(confirm('Clear all registrations?')){ saveToStorage(REGS_KEY, []); renderRegistrations(); }});
+
+    // Projects manager
+    const showProjectsBtnEl = document.getElementById('showProjectsBtn');
+    const projectsSection = document.getElementById('projectsSection');
+    const projectEditor = document.getElementById('projectEditor');
+    const newProjectBtn = document.getElementById('newProjectBtn');
+    const projectForm = document.getElementById('projectForm');
+    const projectIdInput = document.getElementById('projectId');
+    const projectTitle = document.getElementById('projectTitle');
+    const projectDescription = document.getElementById('projectDescription');
+    const projectImage = document.getElementById('projectImage');
+    const projectsContainer = document.getElementById('projectsContainer');
+    const noProjects = document.getElementById('noProjects');
+    const cancelProject = document.getElementById('cancelProject');
+
+    function renderProjects(){
+        const list = loadFromStorage(PROJECTS_KEY);
+        projectsContainer.innerHTML = '';
+        if(!list.length){ noProjects.style.display='block'; return; }
+        noProjects.style.display='none';
+        list.slice().reverse().forEach(p=>{
+            const card = document.createElement('div'); card.className='card'; card.style.position='relative'; card.style.padding='8px';
+            card.innerHTML = `<div style="height:140px;background:#f3f4f6;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center" data-media="${p.mediaIds && p.mediaIds[0] ? p.mediaIds[0] : ''}"></div><div style="padding:8px"><h4>${escapeHtml(p.title)}</h4><div class="muted">${escapeHtml((p.description||'').slice(0,160))}</div><div style="margin-top:8px"><button class="btn ghost project-edit" data-id="${p.id}">Edit</button> <button class="btn" style="background:var(--danger);color:#fff" data-id="${p.id}" data-action="delete">Delete</button></div></div>`;
+            projectsContainer.appendChild(card);
+            // load image
+            (async ()=>{
+                if(p.mediaIds && p.mediaIds.length){ const url = await getMediaURL(p.mediaIds[0]).catch(()=>null); if(url){ const el = card.querySelector('[data-media]'); const img = document.createElement('img'); img.src = url; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover'; el.innerHTML=''; el.appendChild(img); }
+                }
+            })();
+        });
+        // attach handlers
+        projectsContainer.querySelectorAll('.project-edit').forEach(b=>b.addEventListener('click', ()=>{
+            const id=b.dataset.id; const arr = loadFromStorage(PROJECTS_KEY); const p = arr.find(x=>x.id==id); if(!p) return; projectIdInput.value=p.id; projectTitle.value=p.title; projectDescription.value=p.description||''; projectEditor.style.display='block'; window.scrollTo({top:0,behavior:'smooth'});
+        }));
+        projectsContainer.querySelectorAll('button[data-action="delete"]').forEach(b=>b.addEventListener('click', async ()=>{ const id=b.dataset.id; if(!confirm('Delete this project?')) return; const arr = loadFromStorage(PROJECTS_KEY); const p = arr.find(x=>x.id==id); if(p && p.mediaIds && p.mediaIds.length){ for(const mid of p.mediaIds){ try{ await deleteMedia(mid); }catch(e){} } } const remaining = arr.filter(x=>x.id!=id); saveToStorage(PROJECTS_KEY, remaining); renderProjects(); }));
+    }
+
+    if(showProjectsBtnEl) showProjectsBtnEl.addEventListener('click', ()=>{ postsSection.style.display='none'; messagesSection && (messagesSection.style.display='none'); subscribersSection && (subscribersSection.style.display='none'); registrationsSection && (registrationsSection.style.display='none'); projectsSection.style.display='block'; renderProjects(); });
+    if(newProjectBtn) newProjectBtn.addEventListener('click', ()=>{ projectEditor.style.display='block'; projectIdInput.value=''; projectTitle.value=''; projectDescription.value=''; projectImage.value=''; });
+    if(cancelProject) cancelProject.addEventListener('click', ()=>{ projectEditor.style.display='none'; });
+
+    projectForm.addEventListener('submit', async (e)=>{
+        e.preventDefault(); const id = projectIdInput.value || String(Date.now()); const title = projectTitle.value.trim(); const desc = projectDescription.value.trim(); if(!title){ alert('Please provide a title'); return; }
+        let mediaIds = [];
+        if(projectImage.files && projectImage.files.length){ try{ mediaIds = await storeFiles(projectImage.files); }catch(e){ console.error(e); alert('Failed to save project media'); return; } }
+        const arr = loadFromStorage(PROJECTS_KEY);
+        const existing = arr.find(x=>x.id==id);
+        const rec = { id, title, description: desc, mediaIds: mediaIds.length ? mediaIds : (existing? existing.mediaIds||[]:[]) , createdAt: existing? existing.createdAt : Date.now(), updatedAt: Date.now() };
+        if(existing){ const updated = arr.map(x=>x.id==id?rec:x); saveToStorage(PROJECTS_KEY, updated); } else { arr.push(rec); saveToStorage(PROJECTS_KEY, arr); }
+        projectEditor.style.display='none'; renderProjects();
+    });
+
+    const exportProjects = document.getElementById('exportProjects');
+    if(exportProjects) exportProjects.addEventListener('click', ()=>{ const data = loadFromStorage(PROJECTS_KEY); const blob = new Blob([JSON.stringify(data,null,2)],[{type:'application/json'}]); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='projects.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+
+    // When showing dashboard, ensure posts view is default
+    const allMenuButtons = [document.getElementById('showPostsBtn'), showMessagesBtn, showSubscribersBtn, showRegistrationsBtn, showProjectsBtnEl];
+    if(document.getElementById('showPostsBtn')){
+        document.getElementById('showPostsBtn').addEventListener('click', ()=>{ postsSection.style.display='block'; messagesSection && (messagesSection.style.display='none'); subscribersSection && (subscribersSection.style.display='none'); registrationsSection && (registrationsSection.style.display='none'); projectsSection && (projectsSection.style.display='none'); window.scrollTo({top:0,behavior:'smooth'}); });
+    }
+
+    // expose renderers on dashboard show
+    const originalShowDashboard = showDashboard;
+    showDashboard = function(){ originalShowDashboard(); renderMessages(); renderSubscribers(); renderRegistrations(); renderProjects(); };
+
 })();

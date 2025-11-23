@@ -56,6 +56,10 @@
                         <ul>
                             <li><button id="newPostBtn" class="btn full">New Post</button></li>
                             <li><button id="showPostsBtn" class="btn full ghost">All Posts</button></li>
+                            <li><button id="showMessagesBtn" class="btn full ghost">Messages</button></li>
+                            <li><button id="showSubscribersBtn" class="btn full ghost">Subscribers</button></li>
+                            <li><button id="showRegistrationsBtn" class="btn full ghost">Registrations</button></li>
+                            <li><button id="showProjectsBtn" class="btn full ghost">Projects</button></li>
                         </ul>
                     </nav>
                 </aside>
@@ -94,6 +98,68 @@
                             <!-- Posts listed here -->
                         </div>
                         <div id="noPosts" class="muted" style="display:none;">No posts yet. Create your first post.</div>
+                    </section>
+
+                    <!-- Messages -->
+                    <section class="card" id="messagesSection" style="display:none;margin-top:18px;">
+                        <h2>Contact Messages</h2>
+                        <div style="display:flex;gap:8px;margin-bottom:8px;">
+                            <button id="exportMessages" class="btn ghost">Export</button>
+                            <button id="clearMessages" class="btn ghost">Clear All</button>
+                        </div>
+                        <div id="messagesContainer"></div>
+                        <div id="noMessages" class="muted" style="display:none">No messages yet.</div>
+                    </section>
+
+                    <!-- Subscribers -->
+                    <section class="card" id="subscribersSection" style="display:none;margin-top:18px;">
+                        <h2>Subscribers</h2>
+                        <div style="display:flex;gap:8px;margin-bottom:8px;">
+                            <button id="exportSubscribers" class="btn ghost">Export</button>
+                            <button id="clearSubscribers" class="btn ghost">Clear All</button>
+                        </div>
+                        <div id="subscribersContainer"></div>
+                        <div id="noSubscribers" class="muted" style="display:none">No subscribers yet.</div>
+                    </section>
+
+                    <!-- Registrations -->
+                    <section class="card" id="registrationsSection" style="display:none;margin-top:18px;">
+                        <h2>Training Registrations</h2>
+                        <div style="display:flex;gap:8px;margin-bottom:8px;">
+                            <button id="exportRegistrations" class="btn ghost">Export</button>
+                            <button id="clearRegistrations" class="btn ghost">Clear All</button>
+                        </div>
+                        <div id="registrationsContainer"></div>
+                        <div id="noRegistrations" class="muted" style="display:none">No registrations yet.</div>
+                    </section>
+
+                    <!-- Projects Manager -->
+                    <section class="card" id="projectsSection" style="display:none;margin-top:18px;">
+                        <h2>Projects / Portfolio</h2>
+                        <div style="display:flex;gap:8px;margin-bottom:8px;">
+                            <button id="newProjectBtn" class="btn">New Project</button>
+                            <button id="exportProjects" class="btn ghost">Export</button>
+                        </div>
+
+                        <section id="projectEditor" style="display:none;margin-top:12px;">
+                            <h3 id="projectEditorTitle">Create Project</h3>
+                            <form id="projectForm">
+                                <input type="hidden" id="projectId">
+                                <label for="projectTitle">Title</label>
+                                <input id="projectTitle" required>
+                                <label for="projectDescription">Description</label>
+                                <textarea id="projectDescription" rows="4"></textarea>
+                                <label for="projectImage">Image</label>
+                                <input id="projectImage" type="file" accept="image/*">
+                                <div style="margin-top:8px;" class="form-actions">
+                                    <button type="submit" class="btn primary">Save Project</button>
+                                    <button type="button" id="cancelProject" class="btn ghost">Cancel</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <div id="projectsContainer" style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px"></div>
+                        <div id="noProjects" class="muted" style="display:none">No projects added yet.</div>
                     </section>
                 </main>
             </div>
